@@ -1,0 +1,6 @@
+{
+  "name": "O Labirinto do Medidor",
+  "description": "Jogo educativo de pensamento computacional (BNCC EF05CO04) e unidades de medida (comprimento, massa e capacidade) para alunos do 5º ano.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
