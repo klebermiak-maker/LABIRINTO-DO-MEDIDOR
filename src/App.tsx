@@ -27,6 +27,7 @@ import {
 } from './types';
 import { interpretAlgorithm, countTotalBlocks } from './utils/interpreter';
 import { sound } from './utils/audio';
+import { fireBoardConfetti } from './utils/confettiFx';
 import { HelpCircle, Sparkles, X } from 'lucide-react';
 
 const INITIAL_PROFILE: StudentProfileData = {
@@ -518,7 +519,18 @@ export default function App() {
       setLatestToastAchievement(newlyUnlocked[0]);
     }
 
-    setIsLevelCompleteOpen(true);
+    // Fire celebratory confetti animation directly over the GameBoard container
+    fireBoardConfetti('game-board-container', stars === 3);
+
+    // If 3 stars (total perfection), play achievement celebration sound
+    if (stars === 3) {
+      sound.playAchievement();
+    }
+
+    // Open modal with a brief celebratory delay so the student sees the robot dance & board particle burst
+    setTimeout(() => {
+      setIsLevelCompleteOpen(true);
+    }, 450);
   };
 
   const handleNextLevel = () => {
@@ -581,6 +593,7 @@ export default function App() {
             executionStatus={robotState.status}
             currentStepNumber={currentStepIdx}
             totalSteps={executionSteps.length}
+            starsEarned={earnedStars}
             onShowHint={() => setIsHintModalOpen(true)}
           />
 

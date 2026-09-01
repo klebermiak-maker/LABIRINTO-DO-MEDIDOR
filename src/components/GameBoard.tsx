@@ -24,6 +24,7 @@ interface GameBoardProps {
   executionStatus: 'idle' | 'running' | 'paused' | 'success' | 'failed';
   currentStepNumber: number;
   totalSteps: number;
+  starsEarned?: number;
   onShowHint: () => void;
 }
 
@@ -49,6 +50,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
   executionStatus,
   currentStepNumber,
   totalSteps,
+  starsEarned,
   onShowHint,
 }) => {
   const { cols, rows } = level.gridSize;
@@ -336,6 +338,33 @@ export const GameBoard: React.FC<GameBoardProps> = ({
             })
           )}
         </div>
+
+        {/* 3-Stars & Victory Board Particle Celebration Overlay */}
+        {executionStatus === 'success' && (
+          <div className="absolute inset-0 pointer-events-none flex flex-col items-center justify-center z-20 animate-fadeIn">
+            {/* Sparkling floating particles */}
+            <div className="absolute top-1/4 left-1/4 animate-bounce text-xl">✨</div>
+            <div className="absolute top-1/3 right-1/4 animate-spin-slow text-2xl">⭐</div>
+            <div className="absolute bottom-1/3 left-1/5 animate-pulse text-lg">🌟</div>
+            <div className="absolute top-1/5 right-1/3 animate-bounce text-xl">🎉</div>
+            <div className="absolute bottom-1/4 right-1/5 animate-spin-slow text-xl">✨</div>
+
+            {starsEarned === 3 && (
+              <div className="bg-slate-900/90 border-2 border-amber-400 text-amber-300 px-4 py-2 rounded-2xl shadow-[0_0_30px_rgba(251,191,36,0.5)] backdrop-blur-md flex items-center gap-2 animate-scaleUp">
+                <span className="text-xl">🏆</span>
+                <div>
+                  <div className="text-xs font-black tracking-wider uppercase text-amber-400 font-mono flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>SUCESSO TOTAL! 3 ESTRELAS</span>
+                  </div>
+                  <div className="text-[10px] text-amber-200/90 font-medium">
+                    Algoritmo otimizado com perfeição!
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Cell Inspector Floating Card (when user clicks any tile) */}
         {inspectedCell && (
