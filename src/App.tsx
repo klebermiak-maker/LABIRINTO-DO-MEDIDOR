@@ -645,14 +645,36 @@ export default function App() {
               </button>
             </div>
 
-            <div className="bg-amber-950/40 border border-amber-500/30 rounded-xl p-3.5 mb-4 text-xs text-amber-200 leading-relaxed">
-              <p className="font-semibold text-white mb-1.5">Desafio Matemático:</p>
-              <p className="mb-2">{currentLevel.mathChallenge}</p>
-              <p className="font-semibold text-white mb-1">Como resolver no algoritmo:</p>
-              <p>{currentLevel.pedagogicalHint}</p>
+            <div className="space-y-3 mb-4">
+              <div className="bg-amber-950/30 border border-amber-500/30 rounded-xl p-3 text-xs text-amber-200 leading-relaxed">
+                <p className="font-semibold text-white mb-1 flex items-center gap-1.5">
+                  <span>🎯</span>
+                  <span>Desafio de Medida & Grandezas:</span>
+                </p>
+                <p>{currentLevel.mathChallenge}</p>
+              </div>
+
+              <div className="bg-cyan-950/30 border border-cyan-500/30 rounded-xl p-3 text-xs text-cyan-200 leading-relaxed">
+                <p className="font-semibold text-white mb-1 flex items-center gap-1.5">
+                  <span>💡</span>
+                  <span>Dica de Estratégia de Programação:</span>
+                </p>
+                <p>{currentLevel.pedagogicalHint}</p>
+              </div>
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex items-center justify-between pt-1 border-t border-slate-800">
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setIsHintModalOpen(false);
+                  setIsCheatSheetOpen(true);
+                }}
+                className="text-xs text-cyan-400 hover:text-cyan-300 underline underline-offset-2 flex items-center gap-1 font-medium"
+              >
+                <span>📐 Consultar Guia de Medidas</span>
+              </button>
+
               <button
                 onClick={() => {
                   sound.playClick();
